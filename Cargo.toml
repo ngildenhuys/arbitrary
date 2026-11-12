@@ -22,10 +22,15 @@ include = ["Cargo.toml", "CHANGELOG.md", "LICENSE-MIT", "LICENSE-APACHE", "READM
 
 [dependencies]
 derive_arbitrary = { version = "~1.5.0", path = "./derive", optional = true }
+rustversion = "1.0.23"
 
 [features]
+default = ["std"]
+
+alloc = []
 # Turn this feature on to enable support for `#[derive(Arbitrary)]`.
 derive = ["derive_arbitrary"]
+std = ["alloc"]
 
 [[example]]
 name = "derive_enum"

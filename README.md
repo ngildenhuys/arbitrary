@@ -130,6 +130,11 @@ compile with older versions but that may change in any new patch release.
 We reserve the right to increment the MSRV on minor releases, however we will
 strive to only do it deliberately and for good reasons.
 
+### Notes on no_std compatability:
+
+- When compiling for with rust versions older than **1.81** `impl` of the `std::error::Error` trait requires the `std` feature.
+- When compiling for with rust versions older than **1.64** impl of the `crate::Arbitrary` trait on `std::ffi::Cstring` requires the `std` feature.
+
 ## License
 
 Licensed under dual MIT or Apache-2.0 at your choice.

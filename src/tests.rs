@@ -1,6 +1,8 @@
+use alloc::{rc::Rc, string::String, sync::Arc, vec::Vec};
 use {
     super::{Arbitrary, Result, Unstructured},
-    std::{collections::HashSet, fmt::Debug, hash::Hash, rc::Rc, sync::Arc},
+    core::{fmt::Debug, hash::Hash},
+    std::collections::HashSet,
 };
 
 /// Assert that the given expected values are all generated.

@@ -1,6 +1,14 @@
+#[rustversion::since(1.64)]
+use alloc::ffi::CString;
+// std feature is required for versions older than 1.64 to get CString impl
+// for older versions of rust std feature is required for implemetation of `crate::Arbitrary` for
+// `std::ffi::Cstring`.
+#[cfg(feature = "std")]
+#[rustversion::before(1.64)]
+use std::ffi::CString;
 use {
     crate::{Arbitrary, Result, Unstructured},
-    std::ffi::CString,
+    alloc::vec::Vec,
 };
 
 impl<'a> Arbitrary<'a> for CString {

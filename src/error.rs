@@ -1,4 +1,4 @@
-use std::{error, fmt};
+use core::fmt;
 
 /// An enumeration of buffer creation errors
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -36,19 +36,25 @@ impl fmt::Display for Error {
     }
 }
 
-impl error::Error for Error {}
+// For older versions of rust std feature is required for implemetation of `std::error::Error`
+#[rustversion::before(1.81)]
+#[cfg(feature = "std")]
+impl std::error::Error for Error {}
+
+#[rustversion::since(1.81)]
+impl core::error::Error for Error {}
 
 /// A `Result` with the error type fixed as `arbitrary::Error`.
 ///
 /// Either an `Ok(T)` or `Err(arbitrary::Error)`.
-pub type Result<T, E = Error> = std::result::Result<T, E>;
+pub type Result<T, E = Error> = core::result::Result<T, E>;
 
 #[cfg(test)]
 mod tests {
     // Often people will import our custom `Result` type because 99.9% of
     // results in a file will be `arbitrary::Result` but then have that one last
     // 0.1% that want to have a custom error type. Don't make them prefix that
-    // 0.1% as `std::result::Result`; instead, let `arbitrary::Result` have an
+    // 0.1% as `core::result::Result`; instead, let `arbitrary::Result` have an
     // overridable error type.
     #[test]
     fn can_use_custom_error_types_with_result() -> super::Result<(), String> {
